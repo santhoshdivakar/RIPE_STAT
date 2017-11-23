@@ -4,6 +4,8 @@ Doc String
 import argparse
 import re
 import requests
+import json
+from src.json2xml import Json2xml
 
 SUPPORTED_FORMAT_TYPES = ['json', 'yaml', 'xml']
 SUPPORTED_ACTION_TYPES = ['network-info', 'geoloc', 'as-overview']
@@ -18,15 +20,16 @@ def checkIpType(ip):
     #Check for the IPV6 before 
     return 'none'
 
-def getRipeStat(action='network-info', format='json', ipaddr=[], asn_list=[]):
+def invalidASN(asn):
+    return True
+
+def get_ripe_stat(action='network-info', format='json', ipaddr=[], asn_list=[]):
     stat = {}
     # validate inputs
     if format not in SUPPORTED_FORMAT_TYPES:
         return {'status':'nok', 'error':'invalid output format'}
-    pass
     if action not in SUPPORTED_ACTION_TYPES:
         return {'status':'nok', 'error':'invalid action'}
-    pass
 
     param_list = []
     if 'ip' in ACTION_PARAM_MAP[action]:
@@ -58,11 +61,18 @@ def getRipeStat(action='network-info', format='json', ipaddr=[], asn_list=[]):
     for input_param in param_list:
         r = requests.get(url+input_param)
         if r.status_code == 200:
-            print("SUCCESS", r.json())
+            print("SUCCESS", format, r.json())
         pass
     pass
     # Parse the reply to the format we need
-    return stat
+    if format == 'json':
+        return {'status':'ok', 'data':r.json()}
+    elif format == 'xml':
+        data = Json2xml.fromstring(json.dumps(r.json()))
+        data_obj = Json2xml(data)
+        print(data_obj.json2xml())
+        return {'status':'ok', 'data':Json2xml.fromstring(json.dumps(r.json()))}
+    return {'status':'nok', 'error':'This definitely needs to be notified to the admin'}
 
 def main():
     my_parser = argparse.ArgumentParser(description='RIPE Statistics Tool')
@@ -74,7 +84,7 @@ def main():
     my_parser.add_argument('--asn', type=str, action='append', default=[])
     my_parser.add_argument('-f','--format', type=str, choices=SUPPORTED_FORMAT_TYPES, default='json')
     arg_list = vars(my_parser.parse_args())
-    print(getRipeStat(action=arg_list['action'], ipaddr=arg_list['ipaddr'], \
+    print(get_ripe_stat(action=arg_list['action'], ipaddr=arg_list['ipaddr'], \
                       format=arg_list['format'], asn_list=arg_list['asn']))
 
 
