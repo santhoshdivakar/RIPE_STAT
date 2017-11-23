@@ -1,2 +1,3 @@
-requests
-dicttoxml
+requests==2.18.4
+dicttoxml==1.74
+pyyaml==3.12

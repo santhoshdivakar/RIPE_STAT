@@ -1,8 +1,11 @@
 import unittest
+import ripe_util
 
-class TestStringMethods(unittest.TestCase):
-
-    def test_upper(self):
+class TestStringMethods(unittest.TestCase): 
+    """
+    To test the validation of the inputs
+    """
+    def test_asn_with_network_info(self):
         self.assertEqual('foo'.upper(), 'FOO')
 
     def test_isupper(self):
