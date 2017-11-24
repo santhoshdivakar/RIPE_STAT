@@ -113,7 +113,7 @@ def _main():
         default='network-info')
     my_parser.add_argument('-i', '--ipaddr', type=str, action='append', default=[])
     my_parser.add_argument('--asn', type=str, action='append', default=[])
-    my_parser.add_argument('-f', '--format', type=str, choices=SUPPORTED_FORMAT_TYPES, default='json')
+    my_parser.add_argument('-f', '--format', type=str, choices=SUPPORTED_FORMAT_TYPES, default='json') #pylint: disable=C0301
     arg_list = vars(my_parser.parse_args())
     print(get_ripe_stat(action=arg_list['action'], ipaddr=arg_list['ipaddr'], \
                       fmt=arg_list['format'], asn_list=arg_list['asn']))
