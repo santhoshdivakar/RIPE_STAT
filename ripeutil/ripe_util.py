@@ -91,10 +91,10 @@ def get_ripe_stat(action='network-info', fmt='json', ipaddr=[], asn_list=[]):
     # Call the service.since any input has the same key, we use a single param_list
     data = []
     for input_param in param_list:
-        r = requests.get(url+input_param)
-        if r.status_code == 200:
+        response = requests.get(url+input_param)
+        if response.status_code == 200:
             #print("SUCCESS", format, r.json())
-            data.append(r.json())
+            data.append(response.json())
         else:
             data.append({'status':'nok', 'error':'finding data for %s unsuccessful'%(input_param,)})
         pass
