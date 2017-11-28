@@ -18,9 +18,13 @@ After importing the module the module function get_ripe_stat with the arguments
 
 ### Function parameters
 1.) action [string] => one of 'network-info','geoloc' or 'as-overview'
+
 2.) format [string] => one of 'json', 'xml' or 'yaml'
+
 3.) ipaddr [list] => list of ip's as string , both ipv4 and ipv6
+
 4.) asn_list [list] => list of ASN's as string, the format is plain numbers and no 'AS' prefixes
+
 
 ## Requirements
 Requires Python-3.6 or above
