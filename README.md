@@ -1,5 +1,5 @@
 # RIPE_STAT
-Command Line tool for extracting RIPE Statistics
+Command Line tool and python module for extracting RIPE Statistics
 
 ## Installation
 Run the setup.py using
@@ -13,6 +13,14 @@ the best use case is to call the script directly  with the necessary arguments
 
 `python ripe_util.py -h`  gives the list of arguments supported 
 
+## Return Value
+According to the format parameter provided the script would print the output
+
+### OUTPUT
+The output is usually in the format
+status => ok/nok , depending on whether the functionality was successful or not
+data => list of items, where each item is the return message from the ripe API. 
+
 ## Usage as module
 After importing the module the module function get_ripe_stat with the arguments
 
@@ -25,6 +33,11 @@ After importing the module the module function get_ripe_stat with the arguments
 
 4.) asn_list [list] => list of ASN's as string, the format is plain numbers and no 'AS' prefixes
 
+### Return Value
+The output is the same as the return value of the script, but the only thing to note is that the output 
+is a string-type. So the output has to converted into the respective native formats using the functions available.
+Example: to get pure json data
+`outputJson = json.loads(ripe_util.get_ripe_stat(ipaddr=['8.8.8.8']))`
 
 ## Requirements
 Requires Python-3.6 or above
