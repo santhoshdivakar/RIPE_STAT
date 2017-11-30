@@ -41,3 +41,9 @@ Example: to get pure json data
 
 ## Requirements
 Requires Python-3.6 or above
+
+## Running Tests
+From the base folder (RIPE_STAT) , run the following Command
+`python -m unittest discover` 
+or
+`python setup.py  test`
