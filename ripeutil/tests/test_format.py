@@ -7,7 +7,7 @@ import unittest
 import json
 
 sys.path.append('..')
-import ripe_util
+from ripeutil import ripe_util
 
 class TestStringMethods(unittest.TestCase):
     """
